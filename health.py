@@ -29,7 +29,7 @@ def fetch_health_state(dht: hivemind.DHT) -> dict:
     reach_infos = dht.run_coroutine(partial(check_reachability_parallel, bootstrap_peer_ids))
     bootstrap_states = ["online" if reach_infos[peer_id]["ok"] else "unreachable" for peer_id in bootstrap_peer_ids]
 
-    models = config.MODELS[:]
+    models = []
     model_index = dht.get("_petals.models", latest=True)
     if model_index is not None and isinstance(model_index.value, dict):
         official_dht_prefixes = {model.dht_prefix for model in models}
