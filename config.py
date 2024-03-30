@@ -1,8 +1,13 @@
-from petals.constants import PUBLIC_INITIAL_PEERS
+import os
 
 from data_structures import ModelInfo
 
-INITIAL_PEERS = PUBLIC_INITIAL_PEERS
+initial_peers = [peer for peer in os.environ.get("INITIAL_PEERS", "").split(" ") if peer]
+if initial_peers:
+    INITIAL_PEERS = initial_peers
+else:
+    from petals.constants import PUBLIC_INITIAL_PEERS
+    INITIAL_PEERS = PUBLIC_INITIAL_PEERS
 
 MODELS = [
     ModelInfo(
